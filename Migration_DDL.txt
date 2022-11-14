@@ -1,0 +1,83 @@
+CREATE TABLE DiseaseType (
+    id serial PRIMARY KEY,
+    description VARCHAR ( 140 ) NOT NULL
+);
+
+
+CREATE TABLE Country(
+    cname varchar(50) primary key,
+    population bigint
+);
+
+
+create table Disease(
+    disease_code varchar(50) primary key,
+    pathogen varchar(20),
+    description varchar(140),
+
+    id int not NULL,
+    FOREIGN KEY (id) REFERENCES DiseaseType (id)
+);
+
+create table Discover(
+    cname varchar(50),
+    foreign key (cname) REFERENCES Country,
+
+    disease_code varchar(50),
+    foreign key (disease_code) REFERENCES Disease (disease_code),
+
+    first_enc_date date,
+
+    Constraint pk_country_disease Primary Key (cname, disease_code)
+);
+
+create table Users(
+    email varchar(60) primary key,
+    name varchar(30),
+    surname varchar(40),
+    salary integer,
+    phone varchar(20),
+
+    cname varchar(50),
+    foreign key (cname) references Country(cname)
+);
+
+create table PublicServant(
+    email varchar(60) primary key,
+    foreign key (email) references Users (email),
+
+    department varchar(50)
+);
+
+create table Doctor(
+    email varchar(60) primary key,
+    foreign key (email) references Users(email),
+
+    degree varchar(20)
+);
+
+create table Specialize(
+    id int not null,
+    foreign key (id) references DiseaseType(id),
+
+    email varchar(60) not null,
+    foreign key (email) references Doctor(email),
+
+    Constraint pk_dtype_doctor Primary Key (id, email)
+);
+
+create table Record(
+    email varchar(60),
+    foreign key (email) references PublicServant(email),
+
+    cname varchar(50),
+    foreign key (cname) references Country(cname),
+
+    disease_code varchar(50),
+    foreign key (disease_code) references Disease(disease_code),
+
+    total_deaths integer,
+    total_patients integer,
+
+    Constraint pk_pservant_country_disease Primary Key (email, cname, disease_code)
+);
