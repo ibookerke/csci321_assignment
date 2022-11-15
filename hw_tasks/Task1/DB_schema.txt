@@ -6,7 +6,7 @@ CREATE TABLE DiseaseType (
 
 CREATE TABLE Country(
     cname varchar(50) primary key,
-    population bigint
+    population bigint not null
 );
 
 
@@ -15,16 +15,16 @@ create table Disease(
     pathogen varchar(20),
     description varchar(140),
 
-    id int not NULL,
-    FOREIGN KEY (id) REFERENCES DiseaseType (id)
+    id int not NULL default 0,
+    FOREIGN KEY (id) REFERENCES DiseaseType (id) on delete set default
 );
 
 create table Discover(
     cname varchar(50),
-    foreign key (cname) REFERENCES Country,
+    foreign key (cname) REFERENCES Country on delete cascade,
 
     disease_code varchar(50),
-    foreign key (disease_code) REFERENCES Disease (disease_code),
+    foreign key (disease_code) REFERENCES Disease (disease_code) on delete cascade,
 
     first_enc_date date,
 
@@ -38,43 +38,43 @@ create table Users(
     salary integer,
     phone varchar(20),
 
-    cname varchar(50),
-    foreign key (cname) references Country(cname)
+    cname varchar(50) default '-',
+    foreign key (cname) references Country(cname) on delete set default
 );
 
 create table PublicServant(
     email varchar(60) primary key,
-    foreign key (email) references Users (email),
+    foreign key (email) references Users (email) on delete cascade,
 
     department varchar(50)
 );
 
 create table Doctor(
     email varchar(60) primary key,
-    foreign key (email) references Users(email),
+    foreign key (email) references Users(email) on delete cascade,
 
     degree varchar(20)
 );
 
 create table Specialize(
     id int not null,
-    foreign key (id) references DiseaseType(id),
+    foreign key (id) references DiseaseType(id) on delete cascade,
 
     email varchar(60) not null,
-    foreign key (email) references Doctor(email),
+    foreign key (email) references Doctor(email) on delete cascade,
 
     Constraint pk_dtype_doctor Primary Key (id, email)
 );
 
 create table Record(
     email varchar(60),
-    foreign key (email) references PublicServant(email),
+    foreign key (email) references PublicServant(email) on delete cascade,
 
     cname varchar(50),
-    foreign key (cname) references Country(cname),
+    foreign key (cname) references Country(cname) on delete cascade,
 
     disease_code varchar(50),
-    foreign key (disease_code) references Disease(disease_code),
+    foreign key (disease_code) references Disease(disease_code) on delete cascade,
 
     total_deaths integer,
     total_patients integer,

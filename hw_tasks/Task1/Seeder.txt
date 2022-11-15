@@ -1,0 +1,81 @@
+insert into diseasetype (description)
+values
+    ('Asthma'),
+    ('Autoimmune Diseases'),
+    ('Cholera'),
+    ('Coronaviruses'),
+    ('Dengue Fever'),
+    ('Ebola'),
+    ('Eczema'),
+    ('Gonorrhea'),
+    ('Hepatitis'),
+    ('HIV/AIDS'),
+    ('Influenza'),
+    ('Leishmaniasis')
+;
+
+select * from diseasetype;
+
+insert into country (cname, population)
+values
+    ('Afghanistan', 39840000),
+    ('Albania', 2812000),
+    ('USA', 331900000),
+    ('China', 1412000000),
+    ('Kazakhstan', 19000000),
+    ('South Korea', 51740000),
+    ('Mongolia', 3329000),
+    ('Kyrgyzstan', 6694000),
+    ('France', 67500000),
+    ('Italy', 59070000),
+    ('United Kingdom', 67330000),
+    ('UAE', 9991000),
+    ('Spain', 47330000),
+    ('Japan', 125700000);
+
+
+select * from country;
+
+insert into disease(disease_code, pathogen, description, id)
+values
+    ('Diareaism', 'anthrax', 'severe stomachache', 4),
+    ('Headache', 'botulism', 'sharp pain in head', 11),
+    ('Bird fever', 'plague', 'Severe cough', 3),
+    ('HIV-2', 'smallpox', 'Weakness', 10),
+    ('Acne', 'tularemia', 'Skin problems', 7),
+    ('Some Disease', 'Arenaviruses', 'High temperature', 6),
+    ('Elephant Disease', 'Obladaetum', 'Enlraging body parts', 2),
+    ('Hepatit C', 'melioidosis', 'Not a vitamin', 9),
+    ('Hepatit B', 'brucellosis', 'vitamin', 9),
+    ('Elephant ears', 'glanders', 'Enlarging ears', 11),
+    ('Rare disease', 'Psittacosis', 'Finger pain', 5),
+    ('Tourette syndrome', 'Touretosis', 'Shaking hands', 5),
+    ('Vitiligo', 'Bunyaviruses', 'Skin spots', 7),
+    ('Malaria', 'Mosquito viruses', 'instant death', 12),
+    ('Malaria light', 'Mosquito viruses', 'slow death', 12),
+    ('Pig fever', 'fevers', 'cough and high temperature', 5),
+    ('Sore throats', 'glanders', 'sores in throat', 1),
+    ('Lung Cancer', 'tularemia', 'lung pain', 1)
+;
+
+insert into discover(cname, disease_code, first_enc_date)
+values
+    ('Afghanistan', 'Diareaism', '1923-01-10'),
+    ('Albania', 'Headache', '1925-03-17'),
+    ('USA', 'Bird fever', '1938-07-18'),
+    ('China', 'HIV-2', '1942-04-05'),
+    ('Kazakhstan', 'Acne', '1942-09-26'),
+    ('South Korea', 'Some Disease',' 1954-08-02'),
+    ('Mongolia', 'Elephant Disease', '1959-03-03'),
+    ('Kyrgyzstan', 'Hepatit C', '1963-02-27'),
+    ('France', 'Hepatit B', '1964-12-09'),
+    ('Italy', 'Elephant ears', '1965-02-01'),
+    ('United Kingdom', 'Rare disease', '1965-09-25'),
+    ('UAE', 'Tourette syndrome', '1975-09-12'),
+    ('Spain', 'Vitiligo', '1975-10-06'),
+    ('Japan', 'Malaria', '1979-02-05'),
+    ('USA', 'Malaria light', '1981-10-31'),
+    ('Japan', 'Pig fever', '1990-08-11'),
+    ('Italy', 'Sore throats', '1994-01-17'),
+    ('China', 'Lung Cancer', '1995-11-29')
+;
