@@ -1,5 +1,5 @@
 /* query1 */
-select d.disease_code as "disease code", d.description as "description"
+select d.disease_code, d.description
 from disease d
          left join discover dc on dc.disease_code = d.disease_code
 where d.pathogen = 'bacteria'
@@ -26,11 +26,11 @@ where doc.email in (
 
 /* query4 */
 select c.cname, coalesce(avg(
-                             case when s.id in (select id
-                                                from diseasetype
-                                                where description ilike 'virology')
-         then u.salary end),
-                         0) as "average salary"
+    case when s.id in (select id
+    from diseasetype
+    where description ilike 'virology')
+        then u.salary end),
+0) as average_salary
 from doctor doc
          join users u on doc.email = u.email
          full join country c on u.cname = c.cname
@@ -72,15 +72,15 @@ from publicservant p
 where r.total_patients between 100000 and 999999;
 
 /* query10 */
-select c.cname, sum(r.total_patients ) as "total_patients"
+select c.cname, sum(r.total_patients ) as total_patients
 from country c
          join record r on c.cname = r.cname
 group by c.cname
-order by "total_patients" desc
+order by total_patients desc
     limit 5;
 
 /* query11 */
-select dt.description, sum(r.total_patients) as "patients treated"
+select dt.description, sum(r.total_patients) as patients_treated
 from disease d
          join diseasetype dt on d.id = dt.id
          join record r on d.disease_code = r.disease_code
