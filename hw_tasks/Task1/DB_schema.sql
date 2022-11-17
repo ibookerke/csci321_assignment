@@ -81,3 +81,16 @@ create table Record(
 
     Constraint pk_pservant_country_disease Primary Key (email, cname, disease_code)
 );
+
+
+
+/* cleaning */
+drop table Record;
+drop table Specialize;
+drop table Doctor;
+drop table PublicServant;
+drop table users;
+drop table discover;
+drop table disease;
+drop table country;
+drop table DiseaseType;
