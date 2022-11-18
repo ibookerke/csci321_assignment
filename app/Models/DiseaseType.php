@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class DiseaseType extends Model
 {
-    protected $table = 'diseasetype';
     use HasFactory;
+
+    protected $table = 'diseasetype';
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'description'
+    ];
 }
