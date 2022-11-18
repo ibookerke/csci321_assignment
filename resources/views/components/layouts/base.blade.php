@@ -38,9 +38,9 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="index.html">
+                <a class="nav-link " href="{{ route('user.index') }}">
                     <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
+                    <span>Users</span>
                 </a>
             </li><!-- End Dashboard Nav -->
 

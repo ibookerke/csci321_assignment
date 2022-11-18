@@ -1,7 +1,22 @@
 <x-layouts.base title="Users">
+
+    <div id="messageField">
+        @if(session()->has('message'))
+            <div class="alert alert-{{ session('message_color') }}">
+                {{ session('message') }}
+            </div>
+        @endif
+    </div>
+
+
     <div class="card">
-        <div class="card-body">
-            <table style="min-height: 700px" class="table table-striped table-hover">
+        <div class="card-body p-5">
+            <div class="d-flex justify-content-end mb-2">
+                <a class="btn btn-toolbar btn-success" href="{{ route('user.edit', ['email' => 'new']) }}">
+                    Create User
+                </a>
+            </div>
+            <table style="min-height: 700px" class="table table-striped table-bordered table-hover">
                 <thead>
                 <tr>
                     <th scope="col">email</th>
@@ -23,8 +38,18 @@
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->cname }}</td>
                             <td>
-                                <span class="badge bg-success">Edit</span>
-                                <span class="badge bg-danger">Delete</span>
+                                <a  style="font-size: 14px;"
+                                    class="badge bg-primary rounded-pill text-white"
+                                    href="{{ route('user.edit', ['email' => $user->email]) }}">
+                                    Edit
+                                </a>
+                                <form style="display: inline-block" method="post" action="{{ route('user.delete') }}">
+                                    @csrf
+                                    <input type="hidden" name="email" value="{{ $user->email }}">
+                                    <button style="font-size: 14px; border: none;" type="submit" class="badge bg-danger rounded-pill">
+                                        Delete
+                                    </button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
@@ -34,15 +59,15 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <li class="page-item">
-                            <a class="page-link" href="{{ route('users_index', ['page' => 1]) }}" aria-label="Previous">
+                            <a class="page-link" href="{{ route('user.index', ['page' => 1]) }}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
                         @for($i = 1; $i <= $lastPage; $i++)
-                            <li class="page-item"><a class="page-link" href="{{ route('users_index', ['page' => $i]) }}">{{ $i }}</a></li>
+                            <li class="page-item"><a class="page-link" href="{{ route('user.index', ['page' => $i]) }}">{{ $i }}</a></li>
                         @endfor
                         <li class="page-item">
-                            <a class="page-link" href="{{ route('users_index', ['page' => $lastPage]) }}" aria-label="Next">
+                            <a class="page-link" href="{{ route('user.index', ['page' => $lastPage]) }}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
@@ -50,16 +75,5 @@
                 </nav>
             </div>
         </div>
-{{--        <div style="height: 20px;">--}}
-
-{{--        </div>--}}
-{{--        {{ $users->withQueryString()->links() }}--}}
-{{--        @if(array_key_exists('pagination', $users))--}}
-{{--            {{ $data['pagination']->links() }}--}}
-{{--        @else--}}
-{{--            @if($links)--}}
-{{--                {{ $users->withQueryString()->links() }}--}}
-{{--            @endif--}}
-{{--        @endif--}}
     </div>
 </x-layouts.base>
