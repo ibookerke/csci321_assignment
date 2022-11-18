@@ -33,9 +33,9 @@ create table Discover(
 
 create table Users(
     email varchar(60) primary key,
-    name varchar(30),
-    surname varchar(40),
-    salary integer,
+    name varchar(30) not null,
+    surname varchar(40) not null,
+    salary integer not null,
     phone varchar(20),
 
     cname varchar(50) default '-',

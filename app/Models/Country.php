@@ -7,6 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
+    const DefaultValue = '-';
+
     protected $table = 'country';
+    protected $primaryKey = 'cname';
+
+    public $timestamps = false;
+
     use HasFactory;
+
+    protected $fillable = [
+        'cname',
+        'population'
+    ];
+
+    protected $casts = [
+        'cname' => 'string',
+    ];
+
 }

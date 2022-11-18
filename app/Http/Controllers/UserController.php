@@ -13,7 +13,8 @@ class UserController extends Controller
     {
         $count = User::query()->count();
 
-        $users = User::query();
+        $users = User::query()
+            ->orderBy('email');
         return view('User.index', [
             'users' => $users->paginate(10),
             'firstPage' => 1,

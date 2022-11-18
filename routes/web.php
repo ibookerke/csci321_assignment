@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\DiseaseTypeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -28,3 +29,9 @@ Route::get('disease_types', [DiseaseTypeController::class, 'index'])->name('dise
 Route::get('disease_types/{id}', [DiseaseTypeController::class, 'edit'])->name('disease_types.edit');
 Route::post('disease_types/save', [DiseaseTypeController::class, 'save'])->name('disease_types.save');
 Route::post('disease_types/delete', [DiseaseTypeController::class, 'delete'])->name('disease_types.delete');
+
+Route::get('countries', [CountryController::class, 'index'])->name('countries.index');
+Route::get('countries/{cname}', [CountryController::class, 'edit'])->name('countries.edit');
+Route::post('countries/save', [CountryController::class, 'save'])->name('countries.save');
+Route::post('countries/delete', [CountryController::class, 'delete'])->name('countries.delete');
+
