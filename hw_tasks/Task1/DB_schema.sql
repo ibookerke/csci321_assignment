@@ -12,7 +12,7 @@ CREATE TABLE Country(
 
 create table Disease(
     disease_code varchar(50) primary key,
-    pathogen varchar(20),
+    pathogen varchar(20) not null,
     description varchar(140),
 
     id int not NULL default 0,
@@ -20,10 +20,10 @@ create table Disease(
 );
 
 create table Discover(
-    cname varchar(50),
+    cname varchar(50) not null,
     foreign key (cname) REFERENCES Country on delete cascade,
 
-    disease_code varchar(50),
+    disease_code varchar(50) not null,
     foreign key (disease_code) REFERENCES Disease (disease_code) on delete cascade,
 
     first_enc_date date,
@@ -46,14 +46,14 @@ create table PublicServant(
     email varchar(60) primary key,
     foreign key (email) references Users (email) on delete cascade,
 
-    department varchar(50)
+    department varchar(50) not null
 );
 
 create table Doctor(
     email varchar(60) primary key,
     foreign key (email) references Users(email) on delete cascade,
 
-    degree varchar(20)
+    degree varchar(20) not null
 );
 
 create table Specialize(
@@ -67,13 +67,13 @@ create table Specialize(
 );
 
 create table Record(
-    email varchar(60),
+    email varchar(60) not null,
     foreign key (email) references PublicServant(email) on delete cascade,
 
-    cname varchar(50),
+    cname varchar(50) not null,
     foreign key (cname) references Country(cname) on delete cascade,
 
-    disease_code varchar(50),
+    disease_code varchar(50) not null,
     foreign key (disease_code) references Disease(disease_code) on delete cascade,
 
     total_deaths integer,
