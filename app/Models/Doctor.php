@@ -7,6 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Doctor extends Model
 {
-    protected $table = 'doctor';
     use HasFactory;
+
+    protected $table = 'doctor';
+
+    protected $primaryKey = 'email';
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'email',
+        'degree'
+    ];
+
+    protected $casts = [
+        'email' => 'string',
+    ];
 }

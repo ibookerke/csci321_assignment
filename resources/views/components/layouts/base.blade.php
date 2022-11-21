@@ -38,11 +38,28 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="{{ route('user.index') }}">
-                    <i class="bi bi-grid"></i>
-                    <span>Users</span>
+                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-grid"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
-            </li><!-- End Dashboard Nav -->
+                <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ route('user.index') }}">
+                            <i class="bi bi-circle"></i><span>Users</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('public_servants.index') }}">
+                            <i class="bi bi-circle"></i><span>Public Servants</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('doctors.index') }}">
+                            <i class="bi bi-circle"></i><span>Doctors</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Charts Nav -->
+
             <li class="nav-item">
                 <a class="nav-link " href="{{ route('disease-type.index') }}">
                     <i class="bi bi-menu-button-wide"></i>
@@ -64,51 +81,30 @@
             </li><!-- End Dashboard Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+                <a class="nav-link " href="{{ route('discoveries.index') }}">
+                    <i class="bi bi-gem"></i>
+                    <span>Discoveries</span>
                 </a>
-                <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            </li><!-- End Dashboard Nav -->
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#lala-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-grid"></i><span>Records and Specializations</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="lala-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="charts-chartjs.html">
-                            <i class="bi bi-circle"></i><span>Chart.js</span>
+                        <a href="{{ route('user.index') }}">
+                            <i class="bi bi-circle"></i><span>Records</span>
                         </a>
                     </li>
                     <li>
-                        <a href="charts-apexcharts.html">
-                            <i class="bi bi-circle"></i><span>ApexCharts</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="charts-echarts.html">
-                            <i class="bi bi-circle"></i><span>ECharts</span>
+                        <a href="{{ route('public_servants.index') }}">
+                            <i class="bi bi-circle"></i><span>Specializations</span>
                         </a>
                     </li>
                 </ul>
             </li><!-- End Charts Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="icons-bootstrap.html">
-                            <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="icons-remix.html">
-                            <i class="bi bi-circle"></i><span>Remix Icons</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="icons-boxicons.html">
-                            <i class="bi bi-circle"></i><span>Boxicons</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Icons Nav -->
-
 
         </ul>
 

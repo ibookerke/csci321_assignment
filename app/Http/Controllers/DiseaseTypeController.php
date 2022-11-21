@@ -26,16 +26,18 @@ class DiseaseTypeController extends Controller
 
     public function edit(Request $request)
     {
-        if($request?->id == 'new') {
+        $new = false;
+        $dType = DiseaseType::query()
+            ->find($request->id);
+
+        if(!$dType){
             $dType = new DiseaseType();
-        }
-        else{
-            $dType = DiseaseType::query()
-                ->find($request->id);
+            $new = true;
         }
 
         return view('disease_type.form', [
             'dType' => $dType,
+            'new' => $new
         ]);
     }
 

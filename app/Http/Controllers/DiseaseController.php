@@ -31,13 +31,15 @@ class DiseaseController extends Controller
 
     public function edit(Request $request)
     {
-        if($request?->diesase_code == 'new') {
+        $new = false;
+        $disease = Disease::query()
+            ->where('disease_code', '=', $request?->disease_code)
+            ->first();
+
+        if(!$disease) {
+            $new = true;
             $disease = new Disease();
-        }
-        else{
-            $disease = Disease::query()
-                ->where('disease_code', '=', $request?->disease_code)
-                ->first();
+
         }
 
         $types = DiseaseType::query()
@@ -47,7 +49,8 @@ class DiseaseController extends Controller
 
         return view('diseases.form', [
             'disease' => $disease,
-            'types' => $types
+            'types' => $types,
+            'new' => $new
         ]);
     }
 
@@ -56,7 +59,7 @@ class DiseaseController extends Controller
 
         try {
             $disease = Disease::query()
-                ->where('disease_code', '=', $request->original_disease_code)
+                ->where('disease_code', '=', $request->disease_code)
                 ->first();
 
             if(!$disease) {

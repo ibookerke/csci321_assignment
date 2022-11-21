@@ -25,13 +25,15 @@ class UserController extends Controller
 
     public function edit(Request $request)
     {
-        if($request?->email == 'new') {
+        $new = false;
+
+        $user = User::query()
+            ->where('email', $request?->email)
+            ->first();
+
+        if(!$user) {
+            $new = true;
             $user = new User();
-        }
-        else{
-            $user = User::query()
-                ->where('email', $request?->email)
-                ->first();
         }
 
         $countries = Country::query()
@@ -40,7 +42,8 @@ class UserController extends Controller
 
         return view('User.form', [
             'user' => $user,
-            'countries' => $countries
+            'countries' => $countries,
+            'new' => $new
         ]);
     }
 

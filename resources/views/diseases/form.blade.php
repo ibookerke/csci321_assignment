@@ -2,13 +2,17 @@
     <div class="d-flex justify-content-center" >
         <div class="card col-6">
             <div class="card-body">
-                <form method="POST" action="{{ route('diseases.save', ['original_disease_code' => $disease?->disease_code]) }}" class="row g-3">
+                <form method="POST" action="{{ route('diseases.save') }}" class="row g-3">
                     @csrf
+                    @if(!$new)
+                        <input type="hidden" value="{{ $disease->disease_code }}" name="disease_code">
+                    @endif
                     <div class="col-12">
                         <label for="disease_code" class="form-label">Disease Code</label>
                         <input type="text" {{ !empty($disease?->disease_code) ? 'readonly' : '' }}
-                        class="form-control @error('disease_code') is-invalid @enderror"
-                               name="disease_code" id="disease_code" value="{{ $disease?->disease_code }}">
+                               class="form-control @error('disease_code') is-invalid @enderror"
+                               @if($new) name="disease_code" @else disabled @endif
+                               id="disease_code" value="{{ $disease?->disease_code }}">
                         @error('disease_code')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -21,7 +25,7 @@
                         @enderror
                     </div>
                     <div class="col-12">
-                        <label for="description" class="form-label">Pathogen</label>
+                        <label for="description" class="form-label">Description</label>
                         <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" id="description" value="{{ $disease?->description }}">
                         @error('description')
                         <div class="invalid-feedback">{{ $message }}</div>

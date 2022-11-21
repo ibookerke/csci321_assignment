@@ -4,6 +4,8 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\DiscoverController;
 use App\Http\Controllers\DiseaseController;
 use App\Http\Controllers\DiseaseTypeController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\PublicServantController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +24,7 @@ Route::get('/', function () {
     return redirect()->route('user.index');
 });
 
-Route::get('/users', [UserController::class, 'index'])->name('user.index');
+Route::get('users', [UserController::class, 'index'])->name('user.index');
 Route::get('users/{email}', [UserController::class, 'edit'])->name('user.edit');
 Route::post('users/save', [UserController::class, 'save'])->name('user.save');
 Route::post('users/delete', [UserController::class, 'delete'])->name('user.delete');
@@ -47,3 +49,13 @@ Route::get('discoveries/{cname}', [DiscoverController::class, 'edit'])->name('di
 Route::post('discoveries/save', [DiscoverController::class, 'save'])->name('discoveries.save');
 Route::post('discoveries/delete', [DiscoverController::class, 'delete'])->name('discoveries.delete');
 
+
+Route::get('public_servants', [PublicServantController::class, 'index'])->name('public_servants.index');
+Route::get('public_servants/{email}', [PublicServantController::class, 'edit'])->name('public_servants.edit');
+Route::post('public_servants/save', [PublicServantController::class, 'save'])->name('public_servants.save');
+Route::post('public_servants/delete', [PublicServantController::class, 'delete'])->name('public_servants.delete');
+
+Route::get('doctors', [DoctorController::class, 'index'])->name('doctors.index');
+Route::get('doctors/{email}', [DoctorController::class, 'edit'])->name('doctors.edit');
+Route::post('doctors/save', [DoctorController::class, 'save'])->name('doctors.save');
+Route::post('doctors/delete', [DoctorController::class, 'delete'])->name('doctors.delete');

@@ -3,20 +3,24 @@
         <div class="card col-6">
             <div class="card-body">
                 <h5 class="card-title">Country Edit Form</h5>
-                <form method="POST" action="{{ route('countries.save', ['original_cname' => $country->cname]) }}" class="row g-3">
+                <form method="POST" action="{{ route('countries.save') }}" class="row g-3">
                     @csrf
+                    @if(!$new)
+                        <input type="hidden" value="{{ $country->cname }}" name="cname">
+                    @endif
                     <div class="col-12">
                         <label for="cname" class="form-label">Country Name</label>
                         <input type="text" {{ !empty($country->cname) ? 'readonly' : '' }}
+                               @if($new) name="cname" @else disabled @endif
                                class="form-control @error('cname') is-invalid @enderror"
-                               name="cname" id="cname" value="{{ $country?->cname }}">
+                               id="cname" value="{{ $country?->cname }}">
                         @error('cname')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-12">
                         <label for="population" class="form-label">Population</label>
-                        <input type="text" class="form-control @error('population') is-invalid @enderror" name="population" id="population" value="{{ $country?->population }}">
+                        <input type="number" class="form-control @error('population') is-invalid @enderror" name="population" id="population" value="{{ $country?->population }}">
                         @error('population')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror

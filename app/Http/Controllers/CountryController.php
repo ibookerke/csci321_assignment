@@ -25,17 +25,19 @@ class CountryController extends Controller
 
     public function edit(Request $request)
     {
-        if($request?->cname == 'new') {
+        $new = false;
+        $country = Country::query()
+            ->where('cname', '=', $request->cname)
+            ->first();
+
+        if(!$country){
             $country = new Country();
-        }
-        else{
-            $country = Country::query()
-                ->where('cname', '=', $request->cname)
-                ->first();
+            $new = true;
         }
 
         return view('country.form', [
             'country' => $country,
+            'new' => $new
         ]);
     }
 
@@ -44,7 +46,7 @@ class CountryController extends Controller
 
         try {
             $country = Country::query()
-                ->where('cname', '=', $request->original_cname)
+                ->where('cname', '=', $request->cname)
                 ->first();
 
             if(!$country) {

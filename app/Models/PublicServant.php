@@ -7,6 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class PublicServant extends Model
 {
-    protected $table = 'publicservant';
     use HasFactory;
+
+    protected $table = 'publicservant';
+
+    protected $primaryKey = 'email';
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'email',
+        'department'
+    ];
+
+    protected $casts = [
+        'email' => 'string',
+    ];
 }
