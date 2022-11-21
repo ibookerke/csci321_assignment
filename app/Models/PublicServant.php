@@ -9,7 +9,7 @@ class PublicServant extends Model
 {
     use HasFactory;
 
-    protected $table = 'publicservant';
+    protected $table = 'PublicServant';
 
     protected $primaryKey = 'email';
 

@@ -26,7 +26,7 @@
                         <input type="hidden" value="{{ $discover?->disease_code }}" name="disease_code">
                     @endif
                     <div class="col-12">
-                        <label for="disease_code" class="form-label">Country Name</label>
+                        <label for="disease_code" class="form-label">Disease Code</label>
                         <select id="disease_code" @if($new) name="disease_code" @else disabled @endif
                                 class="form-select form-control @error('disease_code') is-invalid @enderror">
                             @foreach($diseases as $disease)
@@ -40,7 +40,7 @@
                         @enderror
                     </div>
                     <div class="col-12">
-                        <label for="first_enc_date" class="form-label">Disease Code</label>
+                        <label for="first_enc_date" class="form-label">First Encountered</label>
                         <input type="date" class="form-control @error('first_enc_date') is-invalid @enderror"
                                name="first_enc_date" id="first_enc_date" value="{{ $discover?->first_enc_date?->format('Y-m-d') }}">
                         @error('first_enc_date')

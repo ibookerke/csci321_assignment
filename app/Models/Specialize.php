@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Specialize extends Model
 {
-    protected $table = 'specialize';
+    protected $table = 'Specialize';
     use HasFactory;
 }

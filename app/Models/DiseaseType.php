@@ -9,7 +9,7 @@ class DiseaseType extends Model
 {
     use HasFactory;
 
-    protected $table = 'diseasetype';
+    protected $table = 'DiseaseType';
 
     public $timestamps = false;
 

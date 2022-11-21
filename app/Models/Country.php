@@ -9,7 +9,7 @@ class Country extends Model
 {
     const DefaultValue = '-';
 
-    protected $table = 'country';
+    protected $table = 'Country';
     protected $primaryKey = 'cname';
 
     public $timestamps = false;

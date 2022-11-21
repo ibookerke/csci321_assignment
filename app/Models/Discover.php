@@ -9,7 +9,7 @@ class Discover extends Model
 {
     use HasFactory;
 
-    protected $table = 'discover';
+    protected $table = 'Discover';
     public $timestamps = false;
     protected $primaryKey = null;
     public $incrementing = false;
