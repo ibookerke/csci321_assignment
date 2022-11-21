@@ -37,7 +37,7 @@ Route::post('countries/save', [CountryController::class, 'save'])->name('countri
 Route::post('countries/delete', [CountryController::class, 'delete'])->name('countries.delete');
 
 Route::get('diseases', [DiseaseController::class, 'index'])->name('diseases.index');
-Route::get('diseases/{cname}', [DiseaseController::class, 'edit'])->name('diseases.edit');
+Route::get('diseases/{disease_code}', [DiseaseController::class, 'edit'])->name('diseases.edit');
 Route::post('diseases/save', [DiseaseController::class, 'save'])->name('diseases.save');
 Route::post('diseases/delete', [DiseaseController::class, 'delete'])->name('diseases.delete');
 

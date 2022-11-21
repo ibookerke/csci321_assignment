@@ -1,6 +1,6 @@
 <x-layouts.base title="Countries">
 
-    <div cname="messageField">
+    <div id="messageField">
         @if(session()->has('message'))
             <div class="alert alert-{{ session('message_color') }}">
                 {{ session('message') }}
@@ -51,7 +51,7 @@
                     <ul class="pagination">
                         <li class="page-item">
                             <a class="page-link" href="{{ route('countries.index', ['page' => 1]) }}" aria-label="Previous">
-                                <span aria-hcnameden="true">&laquo;</span>
+                                <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
                         @for($i = 1; $i <= $lastPage; $i++)
@@ -59,7 +59,7 @@
                         @endfor
                         <li class="page-item">
                             <a class="page-link" href="{{ route('countries.index', ['page' => $lastPage]) }}" aria-label="Next">
-                                <span aria-hcnameden="true">&raquo;</span>
+                                <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
                     </ul>

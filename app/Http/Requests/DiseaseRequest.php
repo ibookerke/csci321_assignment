@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Disease;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 /**
  * @property string disease_code
@@ -20,7 +22,7 @@ class DiseaseRequest extends FormRequest
             'disease_code' => ['required', 'string', 'max:50'],
             'pathogen' => ['required', 'string', 'max:20'],
             'description' => ['required', 'string', 'max:140'],
-            'id' => []
+            'id' => ['required', 'int', Rule::exists((new Disease())->getTable())]
         ];
     }
 }

@@ -15,6 +15,7 @@ class UserController extends Controller
 
         $users = User::query()
             ->orderBy('email');
+
         return view('User.index', [
             'users' => $users->paginate(10),
             'firstPage' => 1,

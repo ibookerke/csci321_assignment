@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DiseaseRequest;
 use App\Models\Disease;
+use App\Models\DiseaseType;
 use Illuminate\Http\Request;
 
 class DiseaseController extends Controller
@@ -11,10 +13,16 @@ class DiseaseController extends Controller
     {
         $count = Disease::query()->count();
 
-        $countries = Disease::query()
-            ->orderBy('cname');
-        return view('country.index', [
-            'countries' => $countries->paginate(10),
+        $diseases = Disease::query()
+            ->orderBy('disease_code');
+
+        $disease_types = DiseaseType::query()
+            ->get()
+            ->keyBy('id');
+
+        return view('diseases.index', [
+            'diseases' => $diseases->paginate(10),
+            'types' => $disease_types,
             'firstPage' => 1,
             'lastPage' => ceil($count/10)
         ]);
@@ -23,17 +31,23 @@ class DiseaseController extends Controller
 
     public function edit(Request $request)
     {
-        if($request?->cname == 'new') {
-            $country = new Disease();
+        if($request?->diesase_code == 'new') {
+            $disease = new Disease();
         }
         else{
-            $country = Disease::query()
-                ->where('cname', '=', $request->cname)
+            $disease = Disease::query()
+                ->where('disease_code', '=', $request?->disease_code)
                 ->first();
         }
 
-        return view('country.form', [
-            'country' => $country,
+        $types = DiseaseType::query()
+            ->orderBy('id')
+            ->get()
+            ->keyBy('id');
+
+        return view('diseases.form', [
+            'disease' => $disease,
+            'types' => $types
         ]);
     }
 
@@ -41,20 +55,22 @@ class DiseaseController extends Controller
     {
 
         try {
-            $country = Disease::query()
-                ->where('cname', '=', $request->original_cname)
+            $disease = Disease::query()
+                ->where('disease_code', '=', $request->original_disease_code)
                 ->first();
 
-            if(!$country) {
-                $country = new Disease();
+            if(!$disease) {
+                $disease = new Disease();
             }
 
-            $country->fill([
-                'cname' => $request->cname,
-                'population' => $request->population,
+            $disease->fill([
+                'disease_code' => $request->disease_code,
+                'pathogen' => $request->pathogen,
+                'description' => $request->description,
+                'id' => $request->id
             ]);
 
-            $country->save();
+            $disease->save();
 
             session()->flash('message', 'Disease data has been successfully saved');
             session()->flash('message_color', 'success');
@@ -64,24 +80,24 @@ class DiseaseController extends Controller
             session()->flash('message_color', 'danger');
         }
 
-        return redirect()->route('countries.index');
+        return redirect()->route('diseases.index');
     }
 
     public function delete(Request $request)
     {
-        $country = Disease::query()
-            ->where('cname' , '=' , $request->cname)
+        $disease = Disease::query()
+            ->where('disease_code' , '=' , $request->disease_code)
             ->first();
 
-        if(!$country) {
-            session()->flash('message', 'There is no country with such cname' );
+        if(!$disease) {
+            session()->flash('message', 'There is no disease with such disease_code' );
             session()->flash('message_color', 'danger');
-            return redirect()->route('countries.index');
+            return redirect()->route('diseases.index');
         }
 
-        $country->delete();
+        $disease->delete();
         session()->flash('message', 'Disease has been successfully deleted' );
         session()->flash('message_color', 'warning');
-        return redirect()->route('countries.index');
+        return redirect()->route('diseases.index');
     }
 }

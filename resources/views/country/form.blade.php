@@ -1,4 +1,4 @@
-<x-layouts.base title="Country Type Form">
+<x-layouts.base title="Country Form">
     <div class="d-flex justify-content-center" >
         <div class="card col-6">
             <div class="card-body">
