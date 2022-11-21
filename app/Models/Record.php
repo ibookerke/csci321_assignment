@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Record extends Model
 {
-    protected $table = 'Record';
+    protected $table = 'record';
     use HasFactory;
 }
