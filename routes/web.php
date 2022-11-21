@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\DiscoverController;
 use App\Http\Controllers\DiseaseController;
 use App\Http\Controllers\DiseaseTypeController;
 use App\Http\Controllers\UserController;
@@ -41,4 +42,8 @@ Route::get('diseases/{disease_code}', [DiseaseController::class, 'edit'])->name(
 Route::post('diseases/save', [DiseaseController::class, 'save'])->name('diseases.save');
 Route::post('diseases/delete', [DiseaseController::class, 'delete'])->name('diseases.delete');
 
+Route::get('discoveries', [DiscoverController::class, 'index'])->name('discoveries.index');
+Route::get('discoveries/{cname}', [DiscoverController::class, 'edit'])->name('discoveries.edit');
+Route::post('discoveries/save', [DiscoverController::class, 'save'])->name('discoveries.save');
+Route::post('discoveries/delete', [DiscoverController::class, 'delete'])->name('discoveries.delete');
 

@@ -22,7 +22,7 @@ class DiseaseRequest extends FormRequest
             'disease_code' => ['required', 'string', 'max:50'],
             'pathogen' => ['required', 'string', 'max:20'],
             'description' => ['required', 'string', 'max:140'],
-            'id' => ['required', 'int', Rule::exists((new Disease())->getTable())]
+            'id' => ['required', 'int', Rule::exists((new Disease())->getTable(), 'id')]
         ];
     }
 }

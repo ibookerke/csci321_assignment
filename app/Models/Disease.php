@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Disease extends Model
 {
+    use HasFactory;
+
     protected $table = 'disease';
     public $timestamps = false;
     protected $primaryKey = 'disease_code';
@@ -22,5 +24,4 @@ class Disease extends Model
         'id'
     ];
 
-    use HasFactory;
 }
