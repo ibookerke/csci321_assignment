@@ -2,22 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DiscoverRequest;
+use App\Http\Requests\RecordRequest;
 use App\Models\Country;
-use App\Models\Discover;
+use App\Models\PublicServant;
+use App\Models\Record;
 use App\Models\Disease;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class DiscoverController extends Controller
+class RecordController extends Controller
 {
     public function index()
     {
-        $count = Discover::query()->count();
+        $count = Record::query()->count();
 
-        $discoveries = Discover::query()
+        $records = Record::query()
             ->orderBy('cname');
-        return view('discoveries.index', [
-            'discoveries' => $discoveries->paginate(10),
+
+        $users = User::query()
+            ->get()->keyBy('email');
+
+        return view('records.index', [
+            'records' => $records->paginate(10),
+            'users' => $users ?? [],
+            'diseases' => $diseases ?? [],
             'firstPage' => 1,
             'lastPage' => ceil($count/10)
         ]);
@@ -28,15 +36,20 @@ class DiscoverController extends Controller
     {
         $new = false;
 
-        $discover = Discover::query()
+        $record = Record::query()
+            ->where('email', '=', $request->email)
             ->where('cname', '=', $request->cname)
             ->where('disease_code', '=', $request->disease_code)
             ->first();
 
-        if(!$discover) {
+        if(!$record) {
             $new = true;
-            $discover = new Discover();
+            $record = new Record();
         }
+
+        $users = User::query()
+            ->whereIn('email', PublicServant::query()->get()->pluck('email'))
+            ->get();
 
         $diseases = Disease::query()
             ->get();
@@ -45,47 +58,53 @@ class DiscoverController extends Controller
             ->get();
 
 
-        return view('discoveries.form', [
-            'discover' => $discover,
+        return view('records.form', [
+            'record' => $record,
+            'users' =>  $users,
             'diseases' => $diseases,
             'countries' => $countries,
             'new' => $new
         ]);
     }
 
-    public function save(DiscoverRequest $request)
+    public function save(RecordRequest $request)
     {
         try {
             $new = false;
-            $discover = Discover::query()
+            $record = Record::query()
+                ->where('email', '=', $request->email)
                 ->where('cname', '=', $request->cname)
                 ->where('disease_code', '=', $request->disease_code)
                 ->first();
 
-            if(!$discover) {
+            if(!$record) {
                 $new = true;
-                $discover = new Discover();
+                $record = new Record();
             }
 
             if($new) {
-                Discover::query()
+                Record::query()
                     ->create([
+                        'email' => $request->email,
                         'cname' => $request->cname,
                         'disease_code' => $request->disease_code,
-                        'first_enc_date' => $request->first_enc_date
+                        'total_deaths' => $request->total_deaths,
+                        'total_patients' => $request->total_patients
                     ]);
             }
             else{
-                $discover->fill([
+                $record->fill([
+                    'email' => $request->email,
                     'cname' => $request->cname,
                     'disease_code' => $request->disease_code,
-                    'first_enc_date' => $request->first_enc_date
+                    'total_deaths' => $request->total_deaths,
+                    'total_patients' => $request->total_patients
                 ]);
 
-                $discover->save();
+                $record->save();
             }
 
-            session()->flash('message', 'Discover data has been successfully saved');
+            session()->flash('message', 'Record data has been successfully saved');
             session()->flash('message_color', 'success');
         }
         catch (\Exception $ex){
@@ -93,30 +112,32 @@ class DiscoverController extends Controller
             session()->flash('message_color', 'danger');
         }
 
-        return redirect()->route('discoveries.index');
+        return redirect()->route('records.index');
     }
 
     public function delete(Request $request)
     {
-        $discover = Discover::query()
+        $record = Record::query()
+            ->where('email', '=', $request->email)
             ->where('cname' , '=' , $request->cname)
             ->where('disease_code', '=', $request->disease_code)
             ->first();
 
-        if(!$discover) {
+        if(!$record) {
             session()->flash('message', 'There is no country with such cname' );
             session()->flash('message_color', 'danger');
-            return redirect()->route('discoveries.index');
+            return redirect()->route('records.index');
         }
 
-        Discover::query()
+        Record::query()
+            ->where('email', '=', $request->email)
             ->where('cname' , '=' , $request->cname)
             ->where('disease_code', '=', $request->disease_code)
             ->delete();
 
 
-        session()->flash('message', 'Discover has been successfully deleted' );
+        session()->flash('message', 'Record has been successfully deleted' );
         session()->flash('message_color', 'warning');
-        return redirect()->route('discoveries.index');
+        return redirect()->route('records.index');
     }
 }

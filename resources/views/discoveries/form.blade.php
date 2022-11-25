@@ -4,7 +4,7 @@
             <div class="card-body">
                 <h5 class="card-title">Discover Edit Form</h5>
                 <form method="POST" class="row g-3"
-                      action="{{ route('discoveries.save', ['original_cname' => $discover->cname, 'original_d_code' => $discover->disease_code]) }}">
+                      action="{{ route('discoveries.save', ['cname' => $discover->cname, 'disease_code' => $discover->disease_code]) }}">
                     @csrf
                     @if(!$new)
                         <input type="hidden" value="{{ $discover->cname }}" name="cname">

@@ -94,12 +94,12 @@
                 </a>
                 <ul id="lala-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="{{ route('user.index') }}">
+                        <a href="{{ route('records.index') }}">
                             <i class="bi bi-circle"></i><span>Records</span>
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('public_servants.index') }}">
+                        <a href="{{ route('specializations.index') }}">
                             <i class="bi bi-circle"></i><span>Specializations</span>
                         </a>
                     </li>

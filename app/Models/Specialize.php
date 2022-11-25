@@ -7,6 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class Specialize extends Model
 {
-    protected $table = 'specialize';
     use HasFactory;
+
+    protected $table = 'specialize';
+    public $timestamps = false;
+    protected $primaryKey = null;
+    public $incrementing = false;
+
+    protected $fillable = [
+        'id',
+        'email'
+    ];
+
+    protected $casts = [
+        'id' => 'int',
+        'email' => 'string'
+    ];
 }
