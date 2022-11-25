@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\Discover;
 use App\Models\Disease;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DiscoverController extends Controller
 {
@@ -76,13 +77,20 @@ class DiscoverController extends Controller
                     ]);
             }
             else{
-                $discover->fill([
-                    'cname' => $request->cname,
-                    'disease_code' => $request->disease_code,
-                    'first_enc_date' => $request->first_enc_date
-                ]);
-
-                $discover->save();
+                DB::table('discover')
+                    ->where('cname', '=', $request->cname)
+                    ->where('first_enc_date', '=', $request->first_enc_date)
+                    ->upsert(
+                        [
+                            [
+                                'cname' => $request->cname,
+                                'disease_code' => $request->disease_code,
+                                'first_enc_date' => $request->first_enc_date
+                            ]
+                        ],
+                        ['cname', 'disease_code'],
+                        ['first_enc_date']
+                    );
             }
 
             session()->flash('message', 'Discover data has been successfully saved');

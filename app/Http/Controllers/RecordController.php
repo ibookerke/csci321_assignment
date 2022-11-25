@@ -9,6 +9,7 @@ use App\Models\Record;
 use App\Models\Disease;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RecordController extends Controller
 {
@@ -93,15 +94,22 @@ class RecordController extends Controller
                     ]);
             }
             else{
-                $record->fill([
-                    'email' => $request->email,
-                    'cname' => $request->cname,
-                    'disease_code' => $request->disease_code,
-                    'total_deaths' => $request->total_deaths,
-                    'total_patients' => $request->total_patients
-                ]);
-
-                $record->save();
+                DB::table('record')
+                    ->where('cname', '=', $request->cname)
+                    ->where('first_enc_date', '=', $request->first_enc_date)
+                    ->upsert(
+                        [
+                            [
+                                'email' => $request->email,
+                                'cname' => $request->cname,
+                                'disease_code' => $request->disease_code,
+                                'total_deaths' => $request->total_deaths,
+                                'total_patients' => $request->total_patients
+                            ]
+                        ],
+                        ['email', 'cname', 'disease_code'],
+                        ['total_deaths', 'total_patients']
+                    );
             }
 
             session()->flash('message', 'Record data has been successfully saved');
