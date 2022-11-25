@@ -7,7 +7,7 @@
                       action="{{ route('records.save', ['email' => $record->email, 'cname' => $record->cname, 'disease_code' => $record->disease_code]) }}">
                     @csrf
                     @if(!$new)
-                        <input type="hidden" value="{{ $record->email }}" name="cname">
+                        <input type="hidden" value="{{ $record->email }}" name="email">
                     @endif
                     <div class="col-12">
                         <label for="email" class="form-label">Public Servant</label>
